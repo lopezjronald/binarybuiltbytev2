@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "order")
@@ -17,13 +19,20 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 
-    @Column(name = "payment_id")
-    private String paymentId;
+    @OneToOne
+    @JoinColumn(name = "payment_id")
+    private Payment paymentId;
 
     @Column(name = "status_id")
     private String statusId;
+
+    @OneToMany(
+            mappedBy = "order",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<OrderProduct> products = new ArrayList<>();
 
 }
