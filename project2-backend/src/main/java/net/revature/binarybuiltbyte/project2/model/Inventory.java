@@ -17,11 +17,11 @@ public class Inventory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 
-    @Column(name = "product_id")
-    private String productId;
+    @OneToOne
+    @JoinColumn(name = "product_id")
+    private Product productId;
 
     @Column(name = "stock")
     private String stock;
